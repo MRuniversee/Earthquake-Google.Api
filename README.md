@@ -1,1 +1,3 @@
-A project that shows earthquakes using Google Api. 
+A project that shows earthquakes using Google Api.
+
+This project is for Greece but you can change the RSS feed and make it globally.

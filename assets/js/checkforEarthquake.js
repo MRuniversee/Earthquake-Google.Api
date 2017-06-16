@@ -77,14 +77,7 @@ function initMap() {
       for (var i = stringSize; i <= stringSize + 5; i++) {
         var LongitudeValue = LongitudeValue + descriptionData[Longitude + i];
       }
-      // Push data into array features ------------------------------------------------------
-      //      features.push({
-      //        magnitute: magnValue,
-      //        depth: depthValue,
-      //        time: timeValue,
-      //        latitude: LatitudeValue,
-      //        longitude: LongitudeValue
-      //      });
+
       /*  Debugging --------- KEPT just incase ------------
 
           console.log('------------------------------');
@@ -106,12 +99,13 @@ function initMap() {
       } else {
         theImage = icons['maxNO'].icon;
       }
+      console.log(parseFloat(LatitudeValue));
+      console.log(parseFloat(LongitudeValue));
       var marker = new google.maps.Marker({
         position: {
-          lat: parseInt(LatitudeValue),
-          lng: parseInt(LongitudeValue)
+          lat: parseFloat(LatitudeValue),
+          lng: parseFloat(LongitudeValue)
         },
-        //        label: timeValue + " Place : " + LatitudeValue + LongitudeValue,
         icon: theImage,
         map: map
       });

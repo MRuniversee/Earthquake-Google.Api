@@ -6,31 +6,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<meta charset="utf-8">
-	<title>Where it happened</title>
-	<link rel="stylesheet" href="assets/css/custom.css">
+    	<meta charset="utf-8">
+    	<title>Where it happened</title>
+    	<link rel="stylesheet" href="assets/css/custom.css">
     </head>
     <body>
-	<div id="map"></div>
-  <!-- Custom Scripts -->
-	<script>
-	    function initMap() {
-    		var greece = {lat: 37.9722781, lng: 24.1055779};
-    		var map = new google.maps.Map(document.getElementById('map'), {
-    		    zoom: 7,
-    		    center: greece,
-            streetViewControl: false,
-            mapTypeId: 'satellite',
-            heading: 90,
-            tilt: 65,
-            minZoom:7
-    		});
-	    }
-	</script>
-  <!-- JS FILES -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="assets/js/checkforEarthquake.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbF5VkA8lsBWqYVu0A3jiFz6wmBAxPonU&callback=initMap">
-	</script>
+    	<div id="map"></div>
+
+      <!-- JS FILES -->
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbF5VkA8lsBWqYVu0A3jiFz6wmBAxPonU&callback=initMap"></script>
+      <script type="text/javascript" src="assets/js/underscore-min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script type="text/javascript" src="assets/js/checkforEarthquake.js"></script>
+
     </body>
 </html>

@@ -14,28 +14,28 @@ function initMap() {
     tilt: 65,
     minZoom: 7
   });
-
+  // Feel free to add your own icon attributes ------------------------------------------------------------
   var iconBase = 'assets/images/';
   var icons = {
     max36: {
-      icon: iconBase + 'm1.png'
+      url: iconBase + 'm1.png',
     },
     max46: {
-      icon: iconBase + 'm2.png'
+      url: iconBase + 'm2.png'
     },
     max58: {
-      icon: iconBase + 'm3.png'
+      url: iconBase + 'm3.png'
     },
     max65: {
-      icon: iconBase + 'm4.png'
+      url: iconBase + 'm4.png'
     },
     maxNO: {
-      icon: iconBase + 'm5.png'
-    }
+      url: iconBase + 'm5.png'
+    },
   };
-  $.get('http://www.geophysics.geol.uoa.gr/stations/maps/seismicity.xml', function(data) {
-
-    $(data).find("item").each(function() { // or "item" or whatever suits your feed
+  var lastInfo = new google.maps.InfoWindow();
+  $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('http://www.geophysics.geol.uoa.gr/stations/maps/seismicity.xml') + '&callback=?', function(data) {
+    $(data.contents).find("item").each(function() { // or "item" or whatever suits your feed
       var data = $(this);
       var magnValue = '',
         timeValue = '',
@@ -68,13 +68,13 @@ function initMap() {
 
       // Find Latitude Value ------------------------------------------------------
       stringSize = ('Latitude: ').length;
-      for (var i = stringSize; i <= stringSize + 5; i++) {
+      for (var i = stringSize; i <= stringSize + 4; i++) {
         var LatitudeValue = LatitudeValue + descriptionData[Latitude + i];
       }
 
       // Find Longitude Value ------------------------------------------------------
       stringSize = ('Longitude: ').length;
-      for (var i = stringSize; i <= stringSize + 5; i++) {
+      for (var i = stringSize; i <= stringSize + 4; i++) {
         var LongitudeValue = LongitudeValue + descriptionData[Longitude + i];
       }
 
@@ -89,26 +89,39 @@ function initMap() {
       */
       var theImage;
       if (magnValue <= 3.6) {
-        theImage = icons['max36'].icon;
+        theImage = icons['max36'];
       } else if (magnValue <= 4.6) {
-        theImage = icons['max46'].icon;
+        theImage = icons['max46'];
       } else if (magnValue <= 5.8) {
-        theImage = icons['max58'].icon;
+        theImage = icons['max58'];
       } else if (magnValue < 6.5) {
-        theImage = icons['max65'].icon;
+        theImage = icons['max65'];
       } else {
-        theImage = icons['maxNO'].icon;
+        theImage = icons['maxNO'];
       }
-      console.log(parseFloat(LatitudeValue));
-      console.log(parseFloat(LongitudeValue));
+      var contentString = 'Ημερομηνία : ' + timeValue + '.' +
+        '<br></br> Βάθος : ' + depthValue + '.' +
+        '<br></br> Ρίχτερ : ' + magnValue + '.' +
+        '<br></br> Συντεταγμένες : ' + LatitudeValue + ' Δυτικά και ' + LongitudeValue + ' Ανατολικά.';
+
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+
       var marker = new google.maps.Marker({
         position: {
           lat: parseFloat(LatitudeValue),
           lng: parseFloat(LongitudeValue)
         },
+        label: magnValue,
         icon: theImage,
         map: map
       });
-    });
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+        lastInfo.close();
+        lastInfo = infowindow;
+      });
+    }); // ------------ END OF DATA FOREACH -------------------------------
   });
 }

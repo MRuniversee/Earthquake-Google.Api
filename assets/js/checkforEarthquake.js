@@ -90,14 +90,19 @@ function initMap() {
       var theImage;
       if (magnValue <= 3.6) {
         theImage = icons['max36'];
+        zzindex = 10;
       } else if (magnValue <= 4.6) {
         theImage = icons['max46'];
+        zzindex = 20;
       } else if (magnValue <= 5.8) {
         theImage = icons['max58'];
+        zzindex = 30;
       } else if (magnValue < 6.5) {
         theImage = icons['max65'];
+        zzindex = 40;
       } else {
         theImage = icons['maxNO'];
+        zzindex = 50;
       }
       var contentString = 'Ημερομηνία : ' + timeValue + '.' +
         '<br></br> Βάθος : ' + depthValue + '.' +
@@ -115,8 +120,10 @@ function initMap() {
         },
         label: magnValue,
         icon: theImage,
-        map: map
+        map: map,
+        zIndex: zzindex
       });
+
       marker.addListener('click', function() {
         infowindow.open(map, marker);
         lastInfo.close();
